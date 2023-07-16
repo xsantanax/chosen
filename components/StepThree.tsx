@@ -1,6 +1,10 @@
+import Link from 'next/link'
+import styles from 'styles/steps.module.css'
+
 export default function StepTwo({ setStep }: any) {
   return (
     <>
+      <br />
       <div>
         You successfully voted in{' '}
         <u>
@@ -8,7 +12,11 @@ export default function StepTwo({ setStep }: any) {
           {/* {theirEmail} */}
         </u>
       </div>
-      <div onClick={() => setStep(1)}>Go back</div>
+      <br />
+
+      <Link href='/results' className={styles.results}>
+        See Results
+      </Link>
     </>
   )
 }

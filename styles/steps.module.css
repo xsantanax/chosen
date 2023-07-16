@@ -1,0 +1,27 @@
+.link {
+  margin-top: 20px;
+  font-size: 16px;
+  color: rgb(37 99 235);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  margin: 28px;
+  gap: 6px;
+}
+.change {
+  margin-left: 20px;
+  color: rgb(37 99 235);
+  cursor: pointer;
+}
+.results {
+  background-color: #2145af;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+.results:hover {
+  opacity: 0.5;
+  transition-duration: 240ms;
+}

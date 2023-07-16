@@ -17,9 +17,6 @@ export default function Home() {
       {step == 1 && <StepOne setStep={setStep} />}
       {step == 2 && <StepTwo setStep={setStep} />}
       {step == 3 && <StepThree setStep={setStep} />}
-      <Link className={styles.link} href='/results'>
-        See results
-      </Link>
     </>
   )
 }
