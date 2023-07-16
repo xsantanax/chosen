@@ -9,7 +9,8 @@ export default function EmailInput({ placeholder = '', action }: any) {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    if (!/\S+@\S+\.\S+/.test(email)) setError(true)
+    // if (!/\S+@\S+\.\S+/.test(email)) setError(true)
+    if (false) setError(true)
     else {
       action()
       setError(false)
