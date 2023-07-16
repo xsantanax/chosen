@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import './globals.css'
 import styles from './page.module.css'
 import type { Metadata } from 'next'
@@ -19,8 +18,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Header />
-        <main className={styles.main}>{children}</main>
+        <main className={styles.main}>
+          <div className={styles.container}>{children}</div>
+        </main>
       </body>
     </html>
   )

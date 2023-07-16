@@ -23,7 +23,7 @@ export default function Input() {
         onChange={(e) => setTheirEmail(e.target.value)}
       />
       {error && <div className={styles.error}>invalid email</div>}
-      <button type='submit'>
+      <button className={styles.button} type='submit'>
         <div>Confirm</div>
         {/* <PaperAirplaneIcon className='h-4 w-4 -rotate-45 mt-[3px] ml-3' /> */}
       </button>

@@ -3,15 +3,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aliceblue;
   gap: 10px;
-  padding: 10px;
   margin-top: 20px;
+  background-color: aliceblue;
+  padding: 10px;
 }
 
 .input {
   padding: 10px;
   border-radius: 10px;
+  width: 100%;
+  border: none;
 }
 /* .input:focus {
   outline: none;
@@ -24,7 +26,12 @@
 
 .button {
   background-color: #11a37f;
+  width: 100%;
+  border: none;
+  height: 32px;
+  font-weight: 600;
+  color: white;
 }
 
-/* className='bg-[#11A37F] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
+/* flex justify-center px-4 py-2 rounded hover:opacity-50 duration-150
 disabled:cursor-not-allowed disabled:bg-gray-300 ' */
