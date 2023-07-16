@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import styles from 'styles/input.module.css'
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 
 export default function Input() {
   const [theirEmail, setTheirEmail] = useState('')
@@ -25,7 +26,7 @@ export default function Input() {
       {error && <div className={styles.error}>invalid email</div>}
       <button className={styles.button} type='submit'>
         <div>Confirm</div>
-        {/* <PaperAirplaneIcon className='h-4 w-4 -rotate-45 mt-[3px] ml-3' /> */}
+        <PaperAirplaneIcon className={styles.icon} />
       </button>
     </form>
   )

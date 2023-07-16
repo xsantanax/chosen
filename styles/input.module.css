@@ -3,35 +3,51 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   margin-top: 20px;
-  background-color: aliceblue;
-  padding: 10px;
+  max-width: 400px;
+  font-size: 14px;
+  gap: 12px;
 }
 
 .input {
-  padding: 10px;
+  padding: 16px 20px;
   border-radius: 10px;
   width: 100%;
   border: none;
+  border-radius: 4px;
+  font-size: 16px;
 }
-/* .input:focus {
+.input:focus {
   outline: none;
-} */
+}
 
 .error {
   color: red;
-  font-size: 16px;
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #11a37f;
-  width: 100%;
   border: none;
-  height: 32px;
-  font-weight: 600;
   color: white;
+  border-radius: 4px;
+  width: 100%;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+.button:hover {
+  opacity: 0.5;
+  transition-duration: 180ms;
 }
 
-/* flex justify-center px-4 py-2 rounded hover:opacity-50 duration-150
-disabled:cursor-not-allowed disabled:bg-gray-300 ' */
+.icon {
+  height: 16px;
+  width: 16px;
+  margin-left: 12px;
+  rotate: -42deg;
+  margin-bottom: 3px;
+}
