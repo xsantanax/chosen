@@ -11,6 +11,8 @@ export default function Home() {
   return (
     <>
       <div className={styles.title}>Chosen.wiki</div>
+      <div>Think of a close political leader.</div>
+      <div>Someone succesful, who you listen to and can talk to with ease.</div>
       {step == 1 && <StepOne setStep={setStep} />}
       {step == 2 && <StepTwo />}
       <Link className={styles.link} href='/results'>
