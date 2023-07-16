@@ -1,4 +1,4 @@
-// import Input from '@/components/Input'
+import Input from '@/components/Input'
 import styles from './page.module.css'
 import Link from 'next/link'
 
@@ -12,7 +12,7 @@ export default function Home() {
       </div>
       <>
         <div>Type in the email of your chosen one.</div>
-        {/* <Input /> */}
+        <Input />
         <Link className={styles.link} href='/results'>
           See results
         </Link>
