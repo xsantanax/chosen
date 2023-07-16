@@ -13,3 +13,9 @@
 .step {
   margin-bottom: 20px;
 }
+
+.link {
+  margin-top: 16px;
+  font-size: 16px;
+  color: blue;
+}
