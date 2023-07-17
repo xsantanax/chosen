@@ -1,7 +1,7 @@
 'use client'
 import { useContext, createContext } from 'react'
 import { db } from '../firebase'
-import { collection } from 'firebase/firestore'
+import { collection, updateDoc, doc } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { addUserToFirebase } from '@/util/functions'
 
@@ -12,11 +12,9 @@ const VotesProvider = ({ children }) => {
   const [fecthedUsers] = useCollection(collection(db, 'users'))
 
   const users = fecthedUsers?.docs.map((doc) => doc.data())
-  console.log('users', users)
 
   const checkIfVoterExists = (users, from, to) => {
     const currentUser = users.filter((user) => user.id === from)[0]
-    console.log('currentUser', currentUser)
 
     //if voter still doesn't exist
     if (!currentUser) {
@@ -26,16 +24,13 @@ const VotesProvider = ({ children }) => {
       if (currentUser?.allVoters.includes(to)) {
         console.log('circular voting detected, vote cancelled.')
       } else {
-        console.log('must update new vote to firebase user (voter)')
-        //MUST ADD TO DB USING FIREBASE FUNCTION
-        // users[voterIndex].vote = to
+        const userRef = doc(db, 'users', from)
+        updateDoc(userRef, { vote: from })
       }
     }
   }
 
   const addVote = async (from, to) => {
-    let voterIndex, votedIndex
-
     checkIfVoterExists(users, from, to)
 
     // //then check if voted exists

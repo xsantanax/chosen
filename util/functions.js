@@ -1,9 +1,10 @@
 import { db } from '../firebase'
 import {
   addDoc,
+  setDoc,
+  doc,
   collection,
-  serverTimestamp,
-  updateDoc
+  serverTimestamp
 } from 'firebase/firestore'
 
 const sendEmail = async (userEmail, chosenEmail) => {
@@ -45,8 +46,8 @@ export const addUserToFirebase = async (from, to) => {
     directVoters: [],
     allVoters: []
   }
-  console.log('adding new user to firebase', newUser)
-  return addDoc(collection(db, 'users'), newUser)
+
+  return setDoc(doc(db, 'users', from), newUser)
     .then(() => true)
     .catch(() => false)
 }
