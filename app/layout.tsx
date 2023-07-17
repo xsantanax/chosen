@@ -21,11 +21,11 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <Header />
-        <VotesProvider>
-          <main className={styles.main}>
+        <main className={styles.main}>
+          <VotesProvider>
             <div className={styles.container}>{children}</div>
-          </main>
-        </VotesProvider>
+          </VotesProvider>
+        </main>
       </body>
     </html>
   )
