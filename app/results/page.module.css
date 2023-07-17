@@ -5,3 +5,8 @@
   align-items: center;
   padding: 6rem;
 }
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
