@@ -1,5 +1,6 @@
 'use client'
 import { useContext, createContext, useState } from 'react'
+import { sendVote } from '@/util/functions'
 
 const StepsContext = createContext()
 
@@ -16,6 +17,7 @@ const StepsProvider = ({ children }) => {
   const handleStep2to3 = (email) => {
     setUserEmail(email)
     setStep(3)
+    sendVote(userEmail, chosenEmail)
   }
 
   return (
