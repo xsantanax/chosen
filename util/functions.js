@@ -34,7 +34,6 @@ const addVoteToFirebase = async (userEmail, chosenEmail) => {
 }
 
 export const sendVote = async (userEmail, chosenEmail) => {
-  //missing test for circular voting
   const success = await addVoteToFirebase(userEmail, chosenEmail)
   if (success) sendEmail(userEmail, chosenEmail)
 }

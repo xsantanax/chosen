@@ -3,7 +3,11 @@ import { useContext, createContext } from 'react'
 import { db } from '../firebase'
 import { collection, updateDoc, doc, arrayUnion } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import { addNewVoterToFirebase, addNewVotedToFirebase } from '@/util/functions'
+import {
+  addNewVoterToFirebase,
+  addNewVotedToFirebase,
+  sendVote
+} from '@/util/functions'
 
 const VotesContext = createContext()
 
@@ -43,6 +47,7 @@ const VotesProvider = ({ children }) => {
   const addVote = async (from, to) => {
     let success = checkIfVoterExists(users, from, to)
     if (success) checkIfVotedExists(users, from, to)
+    sendVote(from, to)
   }
 
   return (
