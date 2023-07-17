@@ -17,7 +17,8 @@ const StepsProvider = ({ children }) => {
   const handleStep2to3 = (email) => {
     setUserEmail(email)
     setStep(3)
-    sendVote(userEmail, chosenEmail)
+    // sendVote(userEmail, chosenEmail)
+    sendVote('rafaelsantana111@gmail.com', 'rafaelsantana111@hotmail.com')
   }
 
   return (
