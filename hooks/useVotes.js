@@ -1,9 +1,9 @@
 'use client'
 import { useContext, createContext } from 'react'
 import { db } from '../firebase'
-import { collection, updateDoc, doc } from 'firebase/firestore'
+import { collection, updateDoc, doc, arrayUnion } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import { addUserToFirebase } from '@/util/functions'
+import { addNewVoterToFirebase, addNewVotedToFirebase } from '@/util/functions'
 
 const VotesContext = createContext()
 
@@ -14,58 +14,35 @@ const VotesProvider = ({ children }) => {
   const users = fecthedUsers?.docs.map((doc) => doc.data())
 
   const checkIfVoterExists = (users, from, to) => {
-    const currentUser = users.filter((user) => user.id === from)[0]
+    const voter = users.filter((user) => user.id === from)[0]
 
-    //if voter still doesn't exist
-    if (!currentUser) {
-      addUserToFirebase(from, to)
+    if (!voter) addNewVoterToFirebase(from, to)
+    else if (voter?.allVoters.includes(to)) {
+      console.log('circular voting detected, vote cancelled.')
+      return false
     } else {
-      //if my vote is in my voters
-      if (currentUser?.allVoters.includes(to)) {
-        console.log('circular voting detected, vote cancelled.')
-      } else {
-        const userRef = doc(db, 'users', from)
-        updateDoc(userRef, { vote: from })
-      }
+      const userRef = doc(db, 'users', from)
+      updateDoc(userRef, { vote: to })
+    }
+    return true
+  }
+
+  const checkIfVotedExists = (users, from, to) => {
+    const voted = users.filter((user) => user.id === to)[0]
+
+    if (!voted) addNewVotedToFirebase(from, to)
+    else {
+      const userRef = doc(db, 'users', to)
+      updateDoc(userRef, {
+        directVoters: arrayUnion(from),
+        allVoters: arrayUnion(from)
+      })
     }
   }
 
   const addVote = async (from, to) => {
-    checkIfVoterExists(users, from, to)
-
-    // //then check if voted exists
-    // if (users.filter((e) => e.id === to).length == 0) {
-    //   //voted doesnt exist, just add it w/ 1 directVoter and me + my allVoters
-    //   users.push({
-    //     id: to,
-    //     vote: null,
-    //     directVoters: [from],
-    //     allVoters: users[voterIndex]
-    //       ? [from, ...users[voterIndex].allVoters]
-    //       : [from] //also need my allVoters
-    //   })
-    // } else {
-    //   //voted already exists, find its index
-    //   votedIndex = users.findIndex((obj) => obj.id == to)
-    //   //update w/ voters
-    //   await users[votedIndex].directVoters.push(from)
-    //   await users[votedIndex].allVoters.push(from)
-    //   //add allVoters to vote chain
-    //   while (!!users[votedIndex].vote) {
-    //     votedIndex = users.findIndex((obj) => obj.id == users[votedIndex].vote)
-    //     await users[votedIndex].allVoters.push(from)
-    //     console.log(
-    //       users[votedIndex].allVoters.concat(users[voterIndex].allVoters)
-    //     )
-    //     users[votedIndex].allVoters = [
-    //       ...new Set([
-    //         ...users[votedIndex].allVoters,
-    //         ...users[voterIndex].allVoters
-    //       ])
-    //     ]
-    //   }
-    // }
-    // return setMyUsers(users)
+    let success = checkIfVoterExists(users, from, to)
+    if (success) checkIfVotedExists(users, from, to)
   }
 
   return (

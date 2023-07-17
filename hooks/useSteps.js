@@ -1,6 +1,5 @@
 'use client'
 import { useContext, createContext, useState } from 'react'
-import { sendVote } from '@/util/functions'
 import { useVotes } from './useVotes'
 
 const StepsContext = createContext()

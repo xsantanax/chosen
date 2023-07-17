@@ -39,15 +39,21 @@ export const sendVote = async (userEmail, chosenEmail) => {
   if (success) sendEmail(userEmail, chosenEmail)
 }
 
-export const addUserToFirebase = async (from, to) => {
+export const addNewVoterToFirebase = async (from, to) => {
   const newUser = {
     id: from,
     vote: to,
     directVoters: [],
     allVoters: []
   }
-
   return setDoc(doc(db, 'users', from), newUser)
-    .then(() => true)
-    .catch(() => false)
+}
+export const addNewVotedToFirebase = async (from, to) => {
+  const newUser = {
+    id: to,
+    vote: null,
+    directVoters: [from],
+    allVoters: [from]
+  }
+  return setDoc(doc(db, 'users', to), newUser)
 }
