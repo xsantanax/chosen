@@ -12,7 +12,7 @@ export default function EmailInput({ placeholder = '', action }: any) {
     // if (!/\S+@\S+\.\S+/.test(email)) setError(true)
     if (false) setError(true)
     else {
-      action()
+      action(email)
       setError(false)
     }
   }
