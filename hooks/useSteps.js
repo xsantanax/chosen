@@ -1,6 +1,7 @@
 'use client'
 import { useContext, createContext, useState } from 'react'
 import { sendVote } from '@/util/functions'
+import { useVotes } from './useVotes'
 
 const StepsContext = createContext()
 
@@ -8,6 +9,7 @@ const StepsProvider = ({ children }) => {
   const [step, setStep] = useState(1)
   const [userEmail, setUserEmail] = useState('')
   const [chosenEmail, setChosenEmail] = useState('')
+  const { addVote } = useVotes()
 
   const handleStep1to2 = (email) => {
     setChosenEmail(email)
@@ -17,8 +19,8 @@ const StepsProvider = ({ children }) => {
   const handleStep2to3 = (email) => {
     setUserEmail(email)
     setStep(3)
-    // sendVote(userEmail, chosenEmail)
-    sendVote('rafaelsantana111@gmail.com', 'rafaelsantana111@hotmail.com')
+    addVote('rafaelsantana111@gmail.com', 'rafaelsantana111@hotmail.com')
+    // addVote(userEmail, chosenEmail)
   }
 
   return (

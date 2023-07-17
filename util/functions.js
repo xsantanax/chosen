@@ -1,17 +1,10 @@
 import { db } from '../firebase'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-
-const sendVoteToFirebase = async (userEmail, chosenEmail) => {
-  const vote = {
-    from: userEmail,
-    to: chosenEmail,
-    createdAt: serverTimestamp()
-  }
-
-  return await addDoc(collection(db, 'votes'), vote)
-    .then(() => true)
-    .catch(() => false)
-}
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc
+} from 'firebase/firestore'
 
 const sendEmail = async (userEmail, chosenEmail) => {
   const res = await fetch('/sendgrid', {
@@ -24,16 +17,36 @@ const sendEmail = async (userEmail, chosenEmail) => {
     },
     method: 'POST'
   })
-
   const { error } = await res.json()
   if (error) console.log(error)
 }
 
+const addVoteToFirebase = async (userEmail, chosenEmail) => {
+  const vote = {
+    from: userEmail,
+    to: chosenEmail,
+    createdAt: serverTimestamp()
+  }
+  return await addDoc(collection(db, 'votes'), vote)
+    .then(() => true)
+    .catch(() => false)
+}
+
 export const sendVote = async (userEmail, chosenEmail) => {
   //missing test for circular voting
+  const success = await addVoteToFirebase(userEmail, chosenEmail)
+  if (success) sendEmail(userEmail, chosenEmail)
+}
 
-  const success = await sendVoteToFirebase(userEmail, chosenEmail)
-  if (!success) return
-
-  sendEmail(userEmail, chosenEmail)
+export const addUserToFirebase = async (from, to) => {
+  const newUser = {
+    id: from,
+    vote: to,
+    directVoters: [],
+    allVoters: []
+  }
+  console.log('adding new user to firebase', newUser)
+  return addDoc(collection(db, 'users'), newUser)
+    .then(() => true)
+    .catch(() => false)
 }
